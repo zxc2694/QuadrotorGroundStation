@@ -9,43 +9,19 @@
 void System_Init(void)
 {
 	SystemInit();
-	LED_Config();
-	 //KEY_Config();
-	 RS232_Config();
-	 nRF24L01_Config();
-
-	 Delay_10ms(2);
+	RS232_Config();
 }
 
 
 int main(void)
 {
-	uint8_t Sta = ERROR;
-	uint8_t RxBuf[5][5] = {0};
 
 	System_Init();
-	printf("Rx mode test...\n\r");
-
-	/* nRF Check */
-    	while(Sta == ERROR)
-    		Sta = nRF_Check();
-    	
-	printf("Start ...\n\r");
-    	printf("============");
-    	
-	/*Convert to Rx */
-	nRF_RX_Mode();
-	
-	/*Receive the data from remote quadcopter */
-	while(1){
-		Sta = nRF_Rx_Data(RxBuf[0]);
-		printf("status = ");
-		if(Sta == RX_DR) {
-      	 //	 	Transport_Recv(RxBuf[0]);
-      	 	 	printf("receive ! ");
-     	 	}
-     	 }
-     	
-	
-
+	char String[50] ;
+	char x;
+	printf("Test Xbee .....\n\r");
+    	while(1){
+    		x=USART_RecvByte(USART3); 
+    		printf("%c\n\r",x);
+    	}
 }
